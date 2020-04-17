@@ -1,0 +1,20 @@
+{
+  "known genes":
+  {
+    "human": "https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chrX%3A15561033%2D15602069&hgsid=823958253_LCNF2eB6XIrCFAHLDSwNUSfq7Vq6",
+    "mouse":  "https://genome.ucsc.edu/cgi-bin/hgTracks?db=mm10&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chrX%3A164139332%2D164188420&hgsid=823971453_JBrtpuXLPTYAYdAqY5eg5kpJIXpo"
+  },
+
+  "ncbi reference":
+  {
+    "chicken": "https://genome.ucsc.edu/cgi-bin/hgTracks?db=galGal6&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr1%3A123308711%2D123331184&hgsid=824245671_TfvtxhZI6AGgDhJ5PaaNS46NlaPW",
+    "zebra_fish": "https://genome.ucsc.edu/cgi-bin/hgTracks?db=danRer11&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr11%3A29981678%2D29996344&hgsid=823971453_JBrtpuXLPTYAYdAqY5eg5kpJIXpo",
+    "chimp": "https://genome.ucsc.edu/cgi-bin/hgTracks?db=panTro6&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chrX%3A15525425%2D15565422&hgsid=823971453_JBrtpuXLPTYAYdAqY5eg5kpJIXpo"
+  },
+
+  "ref genes":
+  {
+    "dog": "https://genome.ucsc.edu/cgi-bin/hgTracks?db=canFam3&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chrX%3A11799764%2D11838565&hgsid=823971453_JBrtpuXLPTYAYdAqY5eg5kpJIXpo",
+    "cat": "https://genome.ucsc.edu/cgi-bin/hgTracks?db=felCat9&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chrX%3A12331668%2D12373553&hgsid=823971453_JBrtpuXLPTYAYdAqY5eg5kpJIXpo"
+  }
+}
