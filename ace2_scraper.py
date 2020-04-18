@@ -1,6 +1,7 @@
 import scrapy
 import re
 import abc
+import json
 
 
 class Ace2Spider(scrapy.Spider, abc.ABC):
@@ -10,12 +11,13 @@ class Ace2Spider(scrapy.Spider, abc.ABC):
 
     # class variables
 
-    # Spider settings
+    # Spider properties
     name = "ace2_scraper"
     custom_settings = {
         'FEED_FORMAT': 'jsonlines',
         'FEED_URI': 'ace2_comparison.jsonl'
     }
+    start_urls = []
 
     # other variables
     """
@@ -23,10 +25,6 @@ class Ace2Spider(scrapy.Spider, abc.ABC):
     """
     URLS_PATH = "ace2_genome_browser_urls"
 
-    """
-    list to store this spider's urls
-    """
-    urls = []
 
     # selectors:
 
@@ -63,29 +61,44 @@ class Ace2Spider(scrapy.Spider, abc.ABC):
     """
     NAME_REGEX = "UCSC Genome Browser on ([a-zA-Z]+) "
 
-    # abstract methods:
+    # constructors:
 
-    @abc.abstractmethod
+    def __init__(self):
+        scrapy.Spider.__init__(self)
+        self.set_urls()
+
+    # methods:
+
     def set_urls(self):
         """
-        set the urls_d of this spider.
+        set the start urls attribute of this crawler.
+        """
+        with open(self.URLS_PATH) as urls_f:
+            urls_json = json.load(urls_f)
+            self.start_urls = self.json_to_urls(urls_json)
+
+    @abc.abstractmethod
+    def json_to_urls(self, urls_json):
+        """
+        parse the object obtained from loading the json fil and get the
+         relevant urls from it.
+        :param urls_json: dictionary containing urls. the dict is of the form:
+        {category1: {species1: url}, ... }, category2: ...}
+        :return: list of urls that this crawler will scrape.
         """
         return
 
     # Spider overridden methods:
 
-    def start_requests(self):
-        self.set_urls()
-        for url in self.urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+    def yield_parameters(self, response):
+        print("Ace2Spider - yield_parameters")
 
-    def parse(self, response):
         # get the chromosome information
         chromosome_info = response.css(self.CHROMOSOME_SELECTOR).get().split(":")
         chromosome_num = chromosome_info[0][3:]
         [chromosome_start_loc, chromosome_end_loc] = chromosome_info[1].split("-")
 
-        yield {
+        dic = {
             'species': re.search(self.NAME_REGEX,
                                  response.xpath(self.SPECIES_SELECTOR).get()).group()[23:-1],
 
@@ -97,3 +110,8 @@ class Ace2Spider(scrapy.Spider, abc.ABC):
             'introns num': re.search(self.EXON_INTRON_REGEX, response.xpath(self.INTRON_SELECTOR).get()).group()[1:],
 
         }
+
+        return dic
+
+    def parse(self, response):
+        yield self.yield_parameters(response)
